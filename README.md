@@ -1,6 +1,6 @@
 # Introduction
 
-Deploy lnmp(Linux, Nginx, MySQL, PHP7) using docker.
+Deploy lnmp(Linux, Openresty（nginx）&ngx_pagespeed, MariaDB（MySQL）, Postgesql,PHP7&swoole,redis) using docker.
 
 I want to share my ideas and designs about Web-Deploying using Docker with you.
 
@@ -32,9 +32,8 @@ Check out your https://\<docker-host\> and have fun :beer:
 
 ### Contributors
 
-Micooz <micooz@hotmail.com>
+ibenchu <admin@zuohuadong.cn>
 
-sndnvaps <sndnvaps@gmail.com>
 
 ### License
 
