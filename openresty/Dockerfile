@@ -40,6 +40,7 @@ ARG RESTY_CONFIG_OPTIONS="\
     --with-stream \
     --with-stream_ssl_module \
     --with-threads \
+    --add-module=/tmp/ngx_pagespeed-release-${NPS_VERSION}-beta \
     "
 
 # These are not intended to be user-specified
@@ -80,7 +81,8 @@ RUN \
     && curl -fSL https://github.com/pagespeed/ngx_pagespeed/archive/release-${NPS_VERSION}-beta.tar.gz \
     && tar xzf release-${NPS_VERSION}-beta.tar.gz \
     && cd ngx_pagespeed-release-${NPS_VERSION}-beta \
-    && 
+    && curl -fSL https://dl.google.com/dl/page-speed/psol/${NPS_VERSION}.tar.gz \
+    tar -xzvf ${NPS_VERSION}.tar.gz
 
     && cd /tmp/openresty-${RESTY_VERSION} \
     && ./configure -j${RESTY_J} ${_RESTY_CONFIG_DEPS} ${RESTY_CONFIG_OPTIONS} \
@@ -95,6 +97,9 @@ RUN \
     && apk del .build-deps \
     && ln -sf /dev/stdout /usr/local/openresty/nginx/logs/access.log \
     && ln -sf /dev/stderr /usr/local/openresty/nginx/logs/error.log
+    
+EXPOSE 80
+EXPOSE 443
 
 ENTRYPOINT ["/usr/local/openresty/bin/openresty", "-g", "daemon off;"]
 
