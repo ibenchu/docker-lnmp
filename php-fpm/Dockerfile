@@ -22,6 +22,9 @@ RUN echo "opcache.enable_cli=1" >>  /usr/local/etc/php/conf.d/docker-php-ext-opc
 # install php pdo_pgsql
 RUN docker-php-ext-install pdo_pgsql pgsql
 
+# install php composer
+# RUN docker-php-ext-install composer
+
 
 # install dom xml
 RUN apk add --no-cache libxml2 && docker-php-ext-install dom simplexml xmlreader
@@ -31,15 +34,16 @@ RUN apk add --no-cache libcurl && docker-php-ext-install curl
 
 # install swoole
 RUN pecl install swoole
-RUN docker-php-ext-enable swoole
+# RUN docker-php-ext-install swoole
+# RUN docker-php-ext-enable swoole
 
 #install redis
-ENV PHPREDIS_VERSION php7
-RUN curl -L -o /tmp/redis.tar.gz https://github.com/phpredis/phpredis/archive/$PHPREDIS_VERSION.tar.gz \
-    && tar xfz /tmp/redis.tar.gz \
-    && rm -r /tmp/redis.tar.gz \
-    && mv phpredis-$PHPREDIS_VERSION /usr/src/php/ext/redis \
-    && docker-php-ext-install redis
+# ENV PHPREDIS_VERSION php7
+# RUN curl -L -o /tmp/redis.tar.gz https://github.com/phpredis/phpredis/archive/$PHPREDIS_VERSION.tar.gz \
+#     && tar xfz /tmp/redis.tar.gz \
+#     && rm -r /tmp/redis.tar.gz \
+#     && mv phpredis-$PHPREDIS_VERSION /usr/src/php/ext/redis \
+#     && docker-php-ext-install redis
 
 
 # log to /var/www/log
