@@ -77,10 +77,10 @@ RUN \
     && tar xzf pcre-${RESTY_PCRE_VERSION}.tar.gz \
     && curl -fSL https://openresty.org/download/openresty-${RESTY_VERSION}.tar.gz -o openresty-${RESTY_VERSION}.tar.gz \
     && tar xzf openresty-${RESTY_VERSION}.tar.gz \
-    #install ngx_pagespeed
+    
     && curl -fSL https://github.com/pagespeed/ngx_pagespeed/archive/release-${NPS_VERSION}-beta.tar.gz \
     && tar xzf release-${NPS_VERSION}-beta.tar.gz \
-    && cd ngx_pagespeed-release-${NPS_VERSION}-beta \
+    && cd /tmp/ngx_pagespeed-release-${NPS_VERSION}-beta \
     && curl -fSL https://dl.google.com/dl/page-speed/psol/${NPS_VERSION}.tar.gz \
     tar -xzvf ${NPS_VERSION}.tar.gz
 
