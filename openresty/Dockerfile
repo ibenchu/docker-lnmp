@@ -70,8 +70,7 @@ RUN \
         zlib1g-dev \
     && cd /tmp \
     && curl -f -L -sS https://ngxpagespeed.com/install -o install \
-    && bash install -b /tmp
-    RUN \
+    && bash install -b /tmp \
     && cd /tmp \
     && curl -fSL https://www.openssl.org/source/openssl-${RESTY_OPENSSL_VERSION}.tar.gz -o openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
     && tar xzf openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
