@@ -1,6 +1,3 @@
-# Dockerfile - Debian Jessie
-# https://github.com/openresty/docker-openresty
-
 FROM debian:jessie
 
 MAINTAINER Evan Wies <evan@neomantra.net>
@@ -104,5 +101,7 @@ RUN \
     && ln -sf /dev/stdout /usr/local/openresty/nginx/logs/access.log \
     && ln -sf /dev/stderr /usr/local/openresty/nginx/logs/error.log
 
+EXPOSE 80
+EXPOSE 443
 # TODO: remove any other apt packages?
 ENTRYPOINT ["/usr/local/openresty/bin/openresty", "-g", "daemon off;"]
