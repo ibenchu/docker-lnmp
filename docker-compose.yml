@@ -1,6 +1,6 @@
 # web server
-nginx:
-  image: nginx:latest
+openresty:
+  build: openresty
   ports:
     - "80:80"
     - "443:443"
