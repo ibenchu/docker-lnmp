@@ -70,8 +70,7 @@ RUN \
         zlib1g-dev \
     && cd /tmp \
     && curl -f -L -sS https://ngxpagespeed.com/install -o install \
-    && bash install -b /tmp
-    RUN \
+    && bash install -b /tmp \
     && cd /tmp \
     && curl -fSL https://www.openssl.org/source/openssl-${RESTY_OPENSSL_VERSION}.tar.gz -o openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
     && tar xzf openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
@@ -100,7 +99,7 @@ RUN \
     && make build \
     && make install \
     && cd /tmp \
-    && rm -rf luarocks-${RESTY_LUAROCKS_VERSION} luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
+    && rm -rf luarocks-${RESTY_LUAROCKS_VERSION} ngx_pagespeed-latest-stable luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
     && DEBIAN_FRONTEND=noninteractive apt-get autoremove -y \
     && ln -sf /dev/stdout /usr/local/openresty/nginx/logs/access.log \
     && ln -sf /dev/stderr /usr/local/openresty/nginx/logs/error.log
