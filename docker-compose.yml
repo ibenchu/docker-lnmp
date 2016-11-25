@@ -43,7 +43,7 @@ mariadb:
     - "3306:3306"
   volumes:
     # NOTE: your data will be stored in ./mysql
-    - ./mysql:/var/lib/mysql
+    - /home/mariadb:/var/lib/mysql
   environment:
     - MYSQL_ROOT_PASSWORD=ibenchu123
 

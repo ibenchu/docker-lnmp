@@ -102,7 +102,12 @@ RUN \
     && ln -sf /dev/stderr /usr/local/openresty/nginx/logs/error.log
 
 ENV HTTP_PHP_CONFIG \\\n\\\t#php\\\n\\\tlocation ~ \\\\.php$ {\\\n\\\t\\\troot    html;\\\n\\\t\\\tfastcgi_pass   php7:9000;\\\n\\\t\\\tfastcgi_index    index.php;\\\n\\\t\\\tfastcgi_param  SCRIPT_FILENAME    /usr/local/nginx/html\$fastcgi_script_name;\\\n\\\t\\\tinclude    fastcgi_params;\\\n\\\t}\\\n\\\n\\\t
+ADD  nginx.conf      /etc/openresty/nginx/nginx.conf
+ADD  sites-enabled/*    /etc/openresty/nginx/conf.d/
+RUN  mkdir /home/wwwroot && mkdir /home/log && mkdir /home/log/nginx
+RUN  chown -R www-data.www-data /home/wwwroot /home/log
 
+VOLUME ["/home"]
 RUN sed -i -e "s@# deny access to .htaccess files, if Apache@${HTTP_PHP_CONFIG}# deny access to .htaccess files, if Apache@" /usr/local/nginx/conf/nginx.conf
 
 EXPOSE 80 443

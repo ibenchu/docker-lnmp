@@ -1,4 +1,4 @@
-FROM php:7
+FROM php:fpm
 
 RUN apt-get update
 
@@ -35,12 +35,12 @@ RUN docker-php-ext-enable swoole
 # RUN echo "error_log = /var/www/log/php_error.log" > /usr/local/etc/php/conf.d/log.ini
 RUN echo "log_errors = On" >> /usr/local/etc/php/conf.d/log.ini \
     && echo "error_log=/dev/stderr" >> /usr/local/etc/php/conf.d/log.ini
-
+WORKDIR    /home/wwwroot
 EXPOSE 9000
 # add user additional conf for apache & php
 # RUN echo "" >> /usr/local/php/conf.d/additional.ini
 # RUN echo "" >> /etc/apache2/conf-enabled/additional.conf
-RUN sed -i -e 's/listen = 127.0.0.1:9000/listen = 9000/' /usr/local/php/etc/php-fpm.d/www.conf
+#RUN sed -i -e 's/listen = 127.0.0.1:9000/listen = 9000/' /usr/local/php/etc/php-fpm.d/www.conf
 # set system timezone & php timezone
 # @TODO
 ENTRYPOINT ["/usr/local/php/sbin/php-fpm", "-F", "-c", "/usr/local/php/lib/php.ini"]
