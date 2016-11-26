@@ -29,7 +29,8 @@ RUN pecl install swoole redis
 RUN docker-php-ext-enable swoole
 RUN docker-php-ext-enable redis
 
-RUN curl -sS https://getcomposer.org/installer | php
+RUN curl -sS https://getcomposer.org/installer | php && \
+    mv composer.phar /usr/local/bin/composer
 
 
 
@@ -42,7 +43,7 @@ RUN echo "log_errors = On" >> /usr/local/etc/php/conf.d/log.ini \
 
 COPY php.ini /usr/local/etc/php/
 COPY php-fpm.conf /usr/local/etc/php/
-EXPOSE 9000
+EXPOSE 9000 9501 9502 9503 9504 9505 9506 9507 9508 9509 9510
 # add user additional conf for apache & php
 # RUN echo "" >> /usr/local/php/conf.d/additional.ini
 # RUN echo "" >> /etc/apache2/conf-enabled/additional.conf
