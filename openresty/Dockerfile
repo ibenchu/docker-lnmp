@@ -101,14 +101,14 @@ RUN \
     && ln -sf /dev/stdout /usr/local/openresty/nginx/logs/access.log \
     && ln -sf /dev/stderr /usr/local/openresty/nginx/logs/error.log
 
-ENV HTTP_PHP_CONFIG \\\n\\\t#php\\\n\\\tlocation ~ \\\\.php$ {\\\n\\\t\\\troot    html;\\\n\\\t\\\tfastcgi_pass   php7:9000;\\\n\\\t\\\tfastcgi_index    index.php;\\\n\\\t\\\tfastcgi_param  SCRIPT_FILENAME    /usr/local/nginx/html\$fastcgi_script_name;\\\n\\\t\\\tinclude    fastcgi_params;\\\n\\\t}\\\n\\\n\\\t
+
 ADD  nginx.conf      /etc/openresty/nginx/nginx.conf
 ADD  sites-enabled/*    /etc/openresty/nginx/conf.d/
 RUN  mkdir /home/wwwroot && mkdir /home/log && mkdir /home/log/nginx
-RUN  chown -R www-data.www-data /home/wwwroot /home/log
+RUN  chown -R www.www /home/wwwroot /home/log
 
-VOLUME ["/home"]
-
+VOLUME ["/home/wwwroot/"]
+WORKDIR    /home/wwwroot/
 EXPOSE 80 443
 # TODO: remove any other apt packages?
 ENTRYPOINT ["/usr/local/openresty/bin/openresty", "-g", "daemon off;"]

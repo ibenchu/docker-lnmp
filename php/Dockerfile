@@ -33,8 +33,10 @@ RUN docker-php-ext-enable swoole
 # log to /var/www/log
 # RUN mkdir -p /var/www/log
 # RUN echo "error_log = /var/www/log/php_error.log" > /usr/local/etc/php/conf.d/log.ini
+RUN  mkdir /home/wwwroot && mkdir /home/log && mkdir /home/log/php
 RUN echo "log_errors = On" >> /usr/local/etc/php/conf.d/log.ini \
-    && echo "error_log=/dev/stderr" >> /usr/local/etc/php/conf.d/log.ini
+    && echo "error_log=/home/log/php" >> /usr/local/etc/php/conf.d/log.ini
+
 WORKDIR    /home/wwwroot
 EXPOSE 9000
 # add user additional conf for apache & php
