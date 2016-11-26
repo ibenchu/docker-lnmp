@@ -29,8 +29,8 @@ RUN pecl install swoole redis
 RUN docker-php-ext-enable swoole
 RUN docker-php-ext-enable redis
 
-RUN curl -sS https://getcomposer.org/installer | php && \
-    mv composer.phar /usr/local/bin/composer
+RUN curl -sS https://getcomposer.org/installer | php \
+    && mv composer.phar /usr/local/bin/composer
 
 
 
