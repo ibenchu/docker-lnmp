@@ -68,6 +68,7 @@ RUN \
     && cd /tmp \
     && curl -f -L -sS https://ngxpagespeed.com/install -o install \
     && bash install -b /tmp \
+  RUN \
     && cd /tmp \
     && curl -fSL https://www.openssl.org/source/openssl-${RESTY_OPENSSL_VERSION}.tar.gz -o openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
     && tar xzf openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
@@ -102,8 +103,8 @@ RUN \
     && ln -sf /dev/stderr /usr/local/openresty/nginx/logs/error.log
 
 
-ADD  nginx.conf      /etc/openresty/nginx/nginx.conf
-ADD  sites-enabled/*    /etc/openresty/nginx/conf.d/
+COPY  conf      /etc/openresty/nginx/
+# ADD  sites-enabled/*    /etc/openresty/nginx/conf.d/
 RUN  mkdir /home/wwwroot && mkdir /home/log && mkdir /home/log/nginx
 RUN  chown -R www.www /home/wwwroot /home/log
 

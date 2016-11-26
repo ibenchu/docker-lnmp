@@ -7,11 +7,11 @@ openresty:
   # networks:
   #   - frontend
   volumes:
-    # app
-    - /home/wwwroot:/usr/share/nginx/html
-    # nginx configs
-    - ./openresty/conf/nginx.conf:/etc/local/opresty/nginx/nginx.conf:ro
-    - ./openresty/conf.d/:/etc/loacl/openresty/nginx/conf.d/:ro
+  #   # app
+  - /home/wwwroot:/home/wwwroot
+  #   # nginx configs
+  #   - ./openresty/conf/nginx.conf:/etc/local/opresty/nginx/nginx.conf:ro
+  #   - ./openresty/conf.d/:/etc/loacl/openresty/nginx/conf.d/:ro
     # certificates
     # - ./nginx/ca/server.crt/:/etc/nginx/server.crt:ro
     # - ./nginx/ca/server.key/:/etc/nginx/server.key:ro
@@ -62,19 +62,18 @@ mariadb:
   command: ['mysqld', '--character-set-server=utf8']
   # networks:
   #   - backend
-# pgsql:
-#   postgres:alpine
-#   # ports:
-#   #   - "5432:5432"
-#   # volumes:
-#   volumes:
-#        - /home/data/pgsql:/var/lib/postgresql/data
-#   environment:
-#        - POSTGRES_PASSWORD=ibenchu123
+pgsql:
+  image: postgres:alpine
+  ports:
+    - "5432:5432"
+  volumes:
+       - /home/data/pgsql:/var/lib/postgresql/data
+  environment:
+       - POSTGRES_PASSWORD=ibenchu123
 
-# redis:
-#     build: redis:latest
-#     posts:
-#     - "6379:6379"
+redis:
+    image: redis:latest
+    # posts:
+    # - "6379:6379"
 
 
