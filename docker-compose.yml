@@ -10,7 +10,7 @@ openresty:
   #   # app
   - /home/wwwroot:/home/wwwroot
   #   # nginx configs
-  - ./openresty/conf/:/etc/local/opresty/nginx/
+  - ./openresty/conf/:/usr/local/opresty/nginx/
   #   - ./openresty/conf.d/:/etc/loacl/openresty/nginx/conf.d/:ro
     # certificates
     # - ./nginx/ca/server.crt/:/etc/nginx/server.crt:ro
@@ -56,7 +56,7 @@ mariadb:
     - "3306:3306"
   volumes:
     # NOTE: your data will be stored in ./mysql
-    - /home/data/mariadb:/var/lib/mysql
+    - /home/data/mariadb:/var/lib/mysql:z
   environment:
     - MYSQL_ROOT_PASSWORD=ibenchu123
   command: ['mysqld', '--character-set-server=utf8']
@@ -72,7 +72,7 @@ pgsql:
        - POSTGRES_PASSWORD=ibenchu123
 
 redis:
-  image: redis:alpine
+  build: ./redis
   command: redis-server --requirepass redis
   container_name: redis
   ports: 

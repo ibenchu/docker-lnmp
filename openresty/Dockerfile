@@ -103,13 +103,12 @@ RUN \
     && ln -sf /dev/stderr /usr/local/openresty/nginx/logs/error.log
 
 
-COPY  conf      /etc/openresty/nginx/
+# COPY  conf      /usr/local/openresty/nginx/
 # ADD  sites-enabled/*    /etc/openresty/nginx/conf.d/
 RUN  mkdir /home/wwwroot && mkdir /home/log && mkdir /home/log/nginx
 # RUN  chown -R www.www /home/wwwroot /home/log
 
-VOLUME ["/home/wwwroot/"]
-WORKDIR    /home/wwwroot/
+
 EXPOSE 80 443
 # TODO: remove any other apt packages?
 ENTRYPOINT ["/usr/local/openresty/bin/openresty", "-g", "daemon off;"]
