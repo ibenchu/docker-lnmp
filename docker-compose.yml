@@ -4,6 +4,8 @@ openresty:
   ports:
     - "80:80"
     - "443:443"
+  # networks:
+  #   - frontend
   volumes:
     # app
     - /home/wwwroot:/usr/share/nginx/html
@@ -14,17 +16,27 @@ openresty:
     # - ./nginx/ca/server.crt/:/etc/nginx/server.crt:ro
     # - ./nginx/ca/server.key/:/etc/nginx/server.key:ro
   links:
-    - fpm:__DOCKER_PHP_FPM__
+    - php
+  # depends_on:
+  #           - php
 
 # php-fpm
 php:
   build: ./php
   ports:
     - "9000"
-  volumes:
-    - ./app/src:/usr/share/nginx/html
-    # Your php.ini
-    - /home/config/php.ini:/usr/local/etc/php/php.ini:ro
+  # networks:
+  #   - frontend
+  #   - backend
+  environment:
+            MYSQL_PASSWORD: ibenchu123
+  # depends_on:
+  #   - mysql
+  #   - postgres
+  # volumes:
+  #   - ./app/src:/usr/share/nginx/html
+  #   # Your php.ini
+  #   - /home/config/php.ini:/usr/local/etc/php/php.ini:ro
   # environment:
     # Set your APP env variables here:
     # - APP_KEY=
@@ -32,9 +44,9 @@ php:
     # - DB_DATABASE=
     # - DB_USERNAME=
     # - DB_PASSWORD=
-    links:
-      - "mysql"
-      # - "redis"
+    # links:
+    #   - "mariadb"
+    #   # - "redis"
 
 # database
 mariadb:
@@ -47,19 +59,22 @@ mariadb:
     - /home/data/mariadb:/var/lib/mysql
   environment:
     - MYSQL_ROOT_PASSWORD=ibenchu123
+  command: ['mysqld', '--character-set-server=utf8']
+  # networks:
+  #   - backend
+# pgsql:
+#   postgres:alpine
+#   # ports:
+#   #   - "5432:5432"
+#   # volumes:
+#   volumes:
+#        - /home/data/pgsql:/var/lib/postgresql/data
+#   environment:
+#        - POSTGRES_PASSWORD=ibenchu123
 
-pgsql:
-  postgres:alphine
-  ports:
-    # Allow client to access 3306
-    - "5432:5432"
-  # volumes:
-  volumes:
-       - /home/data/pgsql:/var/lib/postgresql/data
-  environment:
-       - POSTGRES_PASSWORD=ibenchu123
+# redis:
+#     build: redis:latest
+#     posts:
+#     - "6379:6379"
 
-redis:
-    build: redis:latest
-    posts:
-    - "6379:6379"
+
