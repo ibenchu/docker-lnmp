@@ -1,5 +1,5 @@
 FROM php:fpm
-
+MAINTAINER HuadongZuo <admin@zuohuadong.cn>
 RUN apt-get update
 
 # Install modules : GD mcrypt iconv

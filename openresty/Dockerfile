@@ -1,6 +1,6 @@
 FROM debian:jessie
 
-MAINTAINER Evan Wies <evan@neomantra.net>
+MAINTAINER HuadongZuo <admin@zuohuadong.cn>
 
 # Docker Build Arguments
 ARG RESTY_VERSION="1.11.2.2"
