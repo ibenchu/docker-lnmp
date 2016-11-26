@@ -25,10 +25,11 @@ RUN docker-php-ext-install pdo_pgsql pgsql
 
 
 # install swoole
-RUN pecl install swoole
+RUN pecl install swoole redis
 RUN docker-php-ext-enable swoole
+RUN docker-php-ext-enable redis
 
-RUN pecl install composer
+RUN curl -sS https://getcomposer.org/installer | php
 
 
 
