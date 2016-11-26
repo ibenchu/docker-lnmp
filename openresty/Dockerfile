@@ -108,7 +108,6 @@ RUN  mkdir /home/wwwroot && mkdir /home/log && mkdir /home/log/nginx
 RUN  chown -R www-data.www-data /home/wwwroot /home/log
 
 VOLUME ["/home"]
-RUN sed -i -e "s@# deny access to .htaccess files, if Apache@${HTTP_PHP_CONFIG}# deny access to .htaccess files, if Apache@" /usr/local/nginx/conf/nginx.conf
 
 EXPOSE 80 443
 # TODO: remove any other apt packages?
