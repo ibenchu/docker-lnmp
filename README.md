@@ -1,3 +1,4 @@
+docker 多容器 lnmp部署方案，相关配置可以在docker-compose.yml文件中更改
 # Introduction
 
 Deploy lnmp(Linux, Openresty（nginx）&ngx_pagespeed, MariaDB（MySQL）, Postgesql,PHP7&swoole,redis) using docker.
