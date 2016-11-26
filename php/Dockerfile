@@ -1,4 +1,4 @@
-FROM php:fpm
+FROM php
 MAINTAINER HuadongZuo <admin@zuohuadong.cn>
 RUN apt-get update
 
@@ -37,7 +37,7 @@ RUN  mkdir /home/wwwroot && mkdir /home/log && mkdir /home/log/php
 RUN echo "log_errors = On" >> /usr/local/etc/php/conf.d/log.ini \
     && echo "error_log=/home/log/php" >> /usr/local/etc/php/conf.d/log.ini
 
-WORKDIR    /home/wwwroot
+
 EXPOSE 9000
 # add user additional conf for apache & php
 # RUN echo "" >> /usr/local/php/conf.d/additional.ini
