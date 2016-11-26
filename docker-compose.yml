@@ -10,13 +10,13 @@ openresty:
   #   # app
   - /home/wwwroot:/home/wwwroot
   #   # nginx configs
-  #   - ./openresty/conf/nginx.conf:/etc/local/opresty/nginx/nginx.conf:ro
+  - ./openresty/conf/:/etc/local/opresty/nginx/
   #   - ./openresty/conf.d/:/etc/loacl/openresty/nginx/conf.d/:ro
     # certificates
     # - ./nginx/ca/server.crt/:/etc/nginx/server.crt:ro
     # - ./nginx/ca/server.key/:/etc/nginx/server.key:ro
-  links:
-    - php
+  # links:
+  #   - php
   # depends_on:
   #           - php
 
@@ -24,7 +24,7 @@ openresty:
 php:
   build: ./php
   ports:
-    - "9000"
+    - "9000:9000"
   # networks:
   #   - frontend
   #   - backend

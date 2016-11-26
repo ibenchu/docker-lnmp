@@ -16,7 +16,7 @@ RUN apt-get install -y \
 
 
 # install php pdo_mysql redis
-RUN docker-php-ext-install pdo_mysql mysqli iconv mbstring json mcrypt opcache 
+RUN docker-php-ext-install pdo_mysql mysqli iconv mbstring json mcrypt opcache fileinfo
 RUN echo "opcache.enable_cli=1" >>  /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
     # && echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini
 
@@ -28,6 +28,7 @@ RUN docker-php-ext-install pdo_pgsql pgsql
 RUN pecl install swoole
 RUN docker-php-ext-enable swoole
 
+RUN pecl install composer
 
 
 
