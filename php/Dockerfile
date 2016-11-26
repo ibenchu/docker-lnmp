@@ -1,4 +1,4 @@
-FROM php
+FROM php:fpm
 MAINTAINER HuadongZuo <admin@zuohuadong.cn>
 RUN apt-get update
 
@@ -40,6 +40,7 @@ RUN curl -sS https://getcomposer.org/installer | php \
 RUN  mkdir /home/wwwroot && mkdir /home/log && mkdir /home/log/php
 RUN echo "log_errors = On" >> /usr/local/etc/php/conf.d/log.ini \
     && echo "error_log=/home/log/php" >> /usr/local/etc/php/conf.d/log.ini
+RUN  chown -R www-data.www-data /home/wwwroot /home/log
 
 COPY php.ini /usr/local/etc/php/
 COPY php-fpm.conf /usr/local/etc/php/
@@ -51,3 +52,4 @@ EXPOSE 9000 9501 9502 9503 9504 9505 9506 9507 9508 9509 9510
 # set system timezone & php timezone
 # @TODO
 # ENTRYPOINT ["/usr/local/php/sbin/php-fpm", "-F", "-c", "/usr/local/php/lib/php.ini"]
+CMD ["php-fpm"]

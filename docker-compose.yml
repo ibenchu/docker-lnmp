@@ -1,4 +1,3 @@
-# web server
 openresty:
   build: ./openresty
   ports:
@@ -8,29 +7,38 @@ openresty:
   #   - frontend
   volumes:
   #   # app
-  - /home/wwwroot:/home/wwwroot
+  - /home/wwwroot:/home/wwwroot:z
   #   # nginx configs
-  - ./openresty/conf/:/usr/local/opresty/nginx/
+  - ./openresty/conf/:/usr/local/openresty/nginx/conf:z
   #   - ./openresty/conf.d/:/etc/loacl/openresty/nginx/conf.d/:ro
     # certificates
     # - ./nginx/ca/server.crt/:/etc/nginx/server.crt:ro
     # - ./nginx/ca/server.key/:/etc/nginx/server.key:ro
-  # links:
-  #   - php
+  links:
+  - php:__DOCKER_PHP_FPM__
   # depends_on:
-  #           - php
+ 
 
 # php-fpm
 php:
   build: ./php
   ports:
     - "9000:9000"
+    - "9501:9501"
   # networks:
   #   - frontend
   #   - backend
   environment:
             MYSQL_PASSWORD: ibenchu123
-  # depends_on:
+  links:
+     - mariadb:mysql
+     - redis:__DOCKER_CACHE__
+     - pgsql:__DOCKER_POSTGRESQL__
+  volumes:
+    # NOTE: your data will be stored in ./mysql
+    - ./php/php.ini:/usr/local/etc/php/php.ini:ro
+    - /home/wwwroot:/home/wwwroot:z
+    # depends_on:
   #   - mysql
   #   - postgres
   # volumes:
@@ -44,9 +52,7 @@ php:
     # - DB_DATABASE=
     # - DB_USERNAME=
     # - DB_PASSWORD=
-    # links:
-    #   - "mariadb"
-    #   # - "redis"
+   
 
 # database
 mariadb:
@@ -72,10 +78,11 @@ pgsql:
        - POSTGRES_PASSWORD=ibenchu123
 
 redis:
-  build: ./redis
+  image: redis:alpine
   command: redis-server --requirepass redis
   container_name: redis
   ports: 
     - "6379:6379"
+# web server
 
 
