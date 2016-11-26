@@ -15,9 +15,10 @@ RUN apt-get install -y \
 
 
 
-# install php pdo_mysql
+# install php pdo_mysql redis
 RUN docker-php-ext-install pdo_mysql mysqli iconv mbstring json mcrypt opcache 
 RUN echo "opcache.enable_cli=1" >>  /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
+    # && echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini
 
 # install php pdo_pgsql
 RUN docker-php-ext-install pdo_pgsql pgsql
@@ -37,7 +38,8 @@ RUN  mkdir /home/wwwroot && mkdir /home/log && mkdir /home/log/php
 RUN echo "log_errors = On" >> /usr/local/etc/php/conf.d/log.ini \
     && echo "error_log=/home/log/php" >> /usr/local/etc/php/conf.d/log.ini
 
-
+COPY php.ini /usr/local/etc/php/
+COPY php-fpm.conf /usr/local/etc/php/
 EXPOSE 9000
 # add user additional conf for apache & php
 # RUN echo "" >> /usr/local/php/conf.d/additional.ini
@@ -45,4 +47,4 @@ EXPOSE 9000
 #RUN sed -i -e 's/listen = 127.0.0.1:9000/listen = 9000/' /usr/local/php/etc/php-fpm.d/www.conf
 # set system timezone & php timezone
 # @TODO
-ENTRYPOINT ["/usr/local/php/sbin/php-fpm", "-F", "-c", "/usr/local/php/lib/php.ini"]
+# ENTRYPOINT ["/usr/local/php/sbin/php-fpm", "-F", "-c", "/usr/local/php/lib/php.ini"]

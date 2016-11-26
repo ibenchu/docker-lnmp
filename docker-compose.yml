@@ -17,7 +17,7 @@ openresty:
     - fpm:__DOCKER_PHP_FPM__
 
 # php-fpm
-fpm:
+php:
   build: ./php
   ports:
     - "9000"
@@ -32,8 +32,9 @@ fpm:
     # - DB_DATABASE=
     # - DB_USERNAME=
     # - DB_PASSWORD=
-  links:
-    - mysql:mysql
+    links:
+      - "mysql"
+      # - "redis"
 
 # database
 mariadb:
